@@ -1,4 +1,0 @@
-package com.meetSky.step_definitions;
-
-public class meetSky_StepDefinition {
-}

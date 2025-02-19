@@ -19,15 +19,14 @@ import java.util.List;
 
 public abstract class BasePage {
 
-
-
-
-
+    @FindBy(id="newListInput")
+    public WebElement newListInput;
+    @FindBy(xpath = "//input [@data-v-db461eba='' and @title='Save']")
+    public WebElement saveInput;
 
     public BasePage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
-
 
     /**
      * @return page name, for example: Dashboard
@@ -39,6 +38,15 @@ public abstract class BasePage {
         return loaderMask.getText();
     }
 
+    /**
+     * navigates to gıven module page on the app
+     * @param moduleName Strıng
+     */
+    public void navigateTo(String moduleName){
+        moduleName=moduleName.substring(0,1).toUpperCase()+moduleName.substring(1).toLowerCase();
+        WebElement element = Driver.getDriver().findElement(By.xpath("//ul[@id='appmenu']//a[@aria-label='" + moduleName + "']"));
+        element.click();
+    }
 
     /**
      * Waits until loader screen present. If loader screen will not pop up at all,
@@ -85,5 +93,8 @@ public abstract class BasePage {
             BrowserUtils.clickWithTimeOut(Driver.getDriver().findElement(By.xpath(moduleLocator)),  5);
         }
     }
-
+      public WebElement taskElementLinkTex(String linkTxt){
+          WebElement spanElement = Driver.getDriver().findElement(By.linkText(linkTxt));
+           return spanElement;
+      }
 }
