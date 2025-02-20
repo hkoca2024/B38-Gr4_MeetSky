@@ -30,6 +30,22 @@ public class BrowserUtils {
         }
     }
 
+    /**
+     * This method type slowly as a Human type the given string text in to the given WebElement's area
+     * @param element
+     * @param text
+     */
+    public static void typeSlowly(WebElement element, String text) {
+        for (char c : text.toCharArray()) {
+            element.sendKeys(String.valueOf(c));
+            try {
+                Thread.sleep(200 + (int)(Math.random() * 400)); // Random delay 200-600ms
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void switchWindowAndVerify(String expectedInURL, String expectedInTitle){
 
         //Return and store all window handles in a Set.
