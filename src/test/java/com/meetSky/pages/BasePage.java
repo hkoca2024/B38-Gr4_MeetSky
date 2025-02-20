@@ -19,10 +19,7 @@ import java.util.List;
 
 public abstract class BasePage {
 
-    @FindBy(id="newListInput")
-    public WebElement newListInput;
-    @FindBy(xpath = "//input [@data-v-db461eba='' and @title='Save']")
-    public WebElement saveInput;
+
 
     public BasePage() {
         PageFactory.initElements(Driver.getDriver(), this);
@@ -45,6 +42,7 @@ public abstract class BasePage {
     public void navigateTo(String moduleName){
         moduleName=moduleName.substring(0,1).toUpperCase()+moduleName.substring(1).toLowerCase();
         WebElement element = Driver.getDriver().findElement(By.xpath("//ul[@id='appmenu']//a[@aria-label='" + moduleName + "']"));
+        BrowserUtils.waitForClickablility(element,10);
         element.click();
     }
 
@@ -94,7 +92,6 @@ public abstract class BasePage {
         }
     }
       public WebElement taskElementLinkTex(String linkTxt){
-          WebElement spanElement = Driver.getDriver().findElement(By.linkText(linkTxt));
-           return spanElement;
+          return Driver.getDriver().findElement(By.linkText(linkTxt));
       }
 }
