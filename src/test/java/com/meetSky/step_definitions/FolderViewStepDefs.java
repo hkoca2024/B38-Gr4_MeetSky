@@ -5,6 +5,7 @@ import com.meetSky.utilities.BrowserUtils;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.Browser;
 
 public class FolderViewStepDefs {
@@ -15,6 +16,13 @@ public class FolderViewStepDefs {
     public void user_clicks_on_the_select_all_checkbox() {
         BrowserUtils.waitFor(2);
         filesPage.selectAllCheckBox.click();
+    }
+
+    @Then("verify user should see all checkboxes as selected")
+    public void verify_use_should_see_all_checkboxes_as_selected() {
+        for (WebElement each : filesPage.allCheckBoxes) {
+            Assert.assertTrue(each.isSelected());
+        }
     }
 
     @Then("verify user should see total numbers of files-folders as expected")
