@@ -1,6 +1,6 @@
 @B38G4-380_tasksmodule
 Feature: Tasks Module Functionality
-  ###
+  """
   User Story :As a user, I should be able to create
   a new task list or a single task and add
   any task to completed and importants tasks list.
@@ -13,21 +13,28 @@ Feature: Tasks Module Functionality
      by clicking on the star icon on the right side of task line
   5. User can see the number of all uncompleted tasks
      next to the Current tab
-  ###
+  """
 
   Background: User logins and lands on the Dashboard Page
     Given the user is on the login page
     And the user logged in with username as "Employee34" and password as "Employee123"
-
+    And the user navigates to "Tasks" module
+    And user see page title as "Tasks - QA - Meetsky"
   @B38G4-380_tasksmodule_AC01-TC01
   Scenario: User can create a new task list
-    When the user navigates to "Tasks" module
-    Then user see page title as "Tasks - QA - Meetsky"
-    And  User enter list name in Add list input on the page
+    When  User enter list name in Add list input on the page
     Then user see  the new list added
 
-   # Scenario: User can create a new task
+  @B38G4-380_tasksmodule_AC01-TC02
+   Scenario: User can create a new task
+     And user click on the created list element to activate add a task to list input
+     And user see the add a task to list input area
+     When user type a new task into add a task to list input area and press enter
+     Then user see the new task displayed in the task list
 
+
+   # Scenario: User can create a new task
+    #Then user click on the created list element to activate add a task to list input
 
 
 
