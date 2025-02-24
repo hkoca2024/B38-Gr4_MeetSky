@@ -44,11 +44,7 @@ public class CalendarStepDefs {
         Assert.assertTrue(calendarPage.viewCalendarScreen.getAttribute("class").contains(verifySelected));
     }
 
-    @When("the user click new event button")
-    public void the_user_click_new_event_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
+
 
 
 
