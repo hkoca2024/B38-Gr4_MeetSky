@@ -14,8 +14,15 @@ import java.util.List;
 import java.util.Set;
 
 public class BrowserUtils {
-
-
+    /**
+     * it is used for a WebElement list  to wait
+     * @param elements
+     * @param time
+     */
+    public static void waitForVisibilityOfAList(List<WebElement> elements, int time) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(time));
+        wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+    }
     /*
     This method will accept int (in seconds)
     and execute Thread.sleep method for given duration
