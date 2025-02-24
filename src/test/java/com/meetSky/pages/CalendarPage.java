@@ -1,7 +1,6 @@
 package com.meetSky.pages;
 
-import com.meetSky.step_definitions.CalendarStepDefs;
-import org.openqa.selenium.Beta;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
