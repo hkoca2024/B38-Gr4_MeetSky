@@ -62,6 +62,7 @@ public class ContactsStepDefs {
 
     @Then("the user a previously uploaded picture by using “Choose from files” option")
     public void the_user_a_previously_uploaded_picture_by_using_choose_from_files_option() {
+
         contactsPage.selectFromFilesButton.click();
         contactsPage.talkFolder.click();
         contactsPage.talkFolder.click();
