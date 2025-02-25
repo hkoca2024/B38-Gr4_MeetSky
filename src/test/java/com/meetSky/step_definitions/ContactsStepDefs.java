@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class ContactsStepDefs {
 
@@ -29,7 +30,7 @@ public class ContactsStepDefs {
         contactsPage.newContact.click();
         contactsPage.newContact.click();
 
-       for (WebElement each : contactsPage.newContactList) {
+        for (WebElement each : contactsPage.newContactList) {
 
             Assert.assertTrue(each.isDisplayed());
 
@@ -42,9 +43,31 @@ public class ContactsStepDefs {
     public void the_user_should_see_the_total_number_of_contacts_next_to_the_tab() {
 
         contactsPage.allContactButton.click();
-        int totalNumberContacts=contactsPage.newContactList.size();
-        int actual=3;
-        Assert.assertEquals(totalNumberContacts,actual);
+        int totalNumberContacts = contactsPage.newContactList.size();
+        int actual = 3;
+        Assert.assertEquals(totalNumberContacts, actual);
 
     }
+
+
+    @When("the user can click the user profile button and setting option to dropdown")
+    public void the_user_can_click_the_user_profile_button_and_setting_option_to_dropdown() {
+        contactsPage.userProfileButton.click();
+    }
+
+    @When("the user click the setting option")
+    public void the_user_click_the_setting_option() {
+        contactsPage.settingOption.click();
+    }
+
+    @Then("the user a previously uploaded picture by using “Choose from files” option")
+    public void the_user_a_previously_uploaded_picture_by_using_choose_from_files_option() {
+        contactsPage.selectFromFilesButton.click();
+        contactsPage.talkFolder.click();
+        contactsPage.talkFolder.click();
+        contactsPage.chooseButton.click();
+        contactsPage.chooseAsProfilePictureButton.click();
+    }
+
+
 }

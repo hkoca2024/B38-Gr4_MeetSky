@@ -24,3 +24,13 @@ Acceptance Criteria:
   Scenario: User can see all the contacts as a list inside the middle column and total number of the contacts near the “All Contacts” tab
     When the user should see all contacts displayed in the middle column
     Then the user should see the total number of contacts next to the All contacts tab
+
+  @B38G4-371_contactmodule_AC03-TC01
+  Scenario: User can change the profile picture of any contact with a previously uploaded picture by using “Choose from files” option
+    When the user can click the user profile button and setting option to dropdown
+    And the user click the setting option
+    Then the user a previously uploaded picture by using “Choose from files” option
+
+  @B38G4-371_contactmodule_AC04-TC01
+  Scenario: User can delete any selected contact
+
