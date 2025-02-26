@@ -1,6 +1,7 @@
 package com.meetSky.step_definitions;
 
 import com.meetSky.pages.ContactsPage;
+import com.meetSky.utilities.BrowserUtils;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -68,7 +69,35 @@ public class ContactsStepDefs {
         contactsPage.talkFolder.click();
         contactsPage.chooseButton.click();
         contactsPage.chooseAsProfilePictureButton.click();
+        BrowserUtils.waitForVisibility(contactsPage.img, 20);
+        Assert.assertTrue(contactsPage.img.isDisplayed());
     }
+
+
+    @When("User selects a contact from the list")
+    public void user_selects_a_contact_from_the_list() {
+
+        for (int i = 0; i < 3; i++) {
+            contactsPage.newContact.click();
+        }
+        contactsPage.beforeDelete = contactsPage.personLists.size();
+        contactsPage.personLists.get(0).click();
+        System.out.println(contactsPage.beforeDelete);
+
+    }
+
+    @When("User clicks the delete button and verify that it is deleted")
+    public void user_clicks_the_delete_button() {
+        contactsPage.threeDotButton.click();
+        contactsPage.deleteButton.click();
+        int afterDelete = contactsPage.personLists.size();
+        System.out.println(afterDelete);
+        BrowserUtils.waitFor(10);
+        int difference=contactsPage.beforeDelete-afterDelete;
+        System.out.println(difference);
+        Assert.assertTrue(contactsPage.beforeDelete>afterDelete);
+    }
+
 
 
 }

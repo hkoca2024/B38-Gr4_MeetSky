@@ -33,4 +33,7 @@ Acceptance Criteria:
 
   @B38G4-371_contactmodule_AC04-TC01
   Scenario: User can delete any selected contact
+    When User selects a contact from the list
+    And User clicks the delete button and verify that it is deleted
+
 
