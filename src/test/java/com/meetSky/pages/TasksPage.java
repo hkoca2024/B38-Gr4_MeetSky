@@ -11,12 +11,15 @@ import java.time.Duration;
 import java.util.List;
 
 public class TasksPage extends BasePage {
-    //div[@class='draggable-container']//span[@class='app-navigation-entry__title']
-    //a[@ href="#/calendars/taskl2-3"]//span
+
     @FindBy(id="newListInput")
     public WebElement newListInput;
-    @FindBy(xpath = "(//div//input[@title='Save' and contains(@class, 'icon-checkmark')])[2]")
+    @FindBy(xpath = "(//input[@class='action icon-checkmark'])[last()]")
     public WebElement saveInput;
+    @FindBy(xpath="//a[contains(@class, 'app-navigation-entry-link') and contains(., 'Task')]")
+    public List<WebElement>taskLists;
+    @FindBy(xpath="//span[contains(@class, 'app-navigation-entry__title') and contains(., 'Task')]")
+    public List<WebElement>tasklistTexts;
     @FindBy(xpath = "//div[@class='header__input']//input")
     public WebElement addTaskArea;
     @FindBy(xpath="//div[@class='task-body__info']//span")//1/4
@@ -36,6 +39,10 @@ public class TasksPage extends BasePage {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(20));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(inputList)));
     }
+    @FindBy(xpath="//div[@class='tooltip-inner']")
+    public WebElement tryAnotherListName;
+    @FindBy(xpath = "(//input[@class='action icon-close'])[last()]")
+    public WebElement AddListCancel;
     @FindBy(xpath = "//div[@class='title']")
     public List<WebElement> tasks;
     @FindBy(xpath="(//div[@class='app-navigation-entry__counter'])[last()-1]")//(//div[@class='app-navigation-entry__counter'])[last()-1]
@@ -44,12 +51,15 @@ public class TasksPage extends BasePage {
     public WebElement taskCompleted;
     @FindBy(xpath="//div[@class='task-checkbox no-nav']")
     public List<WebElement>unCompletedTasks;
+    @FindBy(xpath="//div//button[@class='action-item action-item--single reactive no-nav undefined undefined has-tooltip']")
+    //action-item action-item--single reactive no-nav undefined undefined has-tooltip
+    public List<WebElement>StarButtons;
+    @FindBy(xpath="//button[@class='action-item action-item--single reactive no-nav undefined undefined priority priority--high']")
+    public List<WebElement>starButtonHigh;
+    @FindBy(xpath="//div/li[@class='app-navigation-entry list reactive router-link-exact-active active']")
+    public WebElement currentTab;
 
-    //public WebElement newListSee =Driver.getDriver().findElement(By.xpath("//span[@class='app-navigation-entry__title' and @title='" + taskL1 + "']"));
-
-    //public WebElement addTaskInput=Driver.getDriver().findElement(By.xpath("//span[text()='" + task1 + "']"));
 
 
-//input[@class='transparent reactive']
 
 }
