@@ -149,7 +149,7 @@ public class CalendarStepDefs {
     @Then("If an event exists, the user verifies it.")
     public void if_an_event_exists_the_user_verifies_it() {
         Assert.assertTrue(BrowserUtils.getElementsText(calendarPage.events).contains("dayOfTest"));
-    }
+    } 
 
 
 
