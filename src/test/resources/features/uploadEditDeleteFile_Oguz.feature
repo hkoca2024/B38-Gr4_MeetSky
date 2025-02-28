@@ -26,7 +26,7 @@ Feature: Upload/Edit/Delete File Module Functionality
   Scenario: User creates a new folder under Files module
     When the user clicks on the add button in the top left
     And the user selects "New folder" in the drop-down menu
-    And the user enters a folder name "TestFolder_4" and confirms
+    And the user enters a folder name "TestFolder_1" and confirms
     Then the new folder should be visible in the file list with expected name
 
 

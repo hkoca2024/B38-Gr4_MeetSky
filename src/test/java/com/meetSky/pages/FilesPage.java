@@ -13,8 +13,7 @@ import java.awt.event.KeyEvent; //*
 import java.util.List;
 
 
-
-public class FilesPage extends BasePage{
+public class FilesPage extends BasePage {
 
     @FindBy(xpath = "//label[@for='select_all_files']")
     public WebElement selectAllCheckBox;
@@ -31,14 +30,8 @@ public class FilesPage extends BasePage{
     @FindBy(xpath = "//tr[@data-type='dir']")
     public List<WebElement> folders;
 
-    //Created by Oguz **************************************************
 
-    //==========================1111111111111111111111111===============
 
-    public void waitForFileListToLoad(int time){
-        BrowserUtils.waitForVisibility(By.xpath("//table[@id='filestable']//tbody[@id='fileList']//tr"),time);
-
-    }
 
 
     @FindBy(xpath = "//a[@class='button new']")
@@ -47,7 +40,7 @@ public class FilesPage extends BasePage{
     /**
      * Clicks the "New" button to initiate a new action or process.
      */
-    public void clickNewButton(){
+    public void clickNewButton() {
         newButton.click();
     }
 
@@ -56,7 +49,7 @@ public class FilesPage extends BasePage{
      *
      * @param option the visible text of the option to be selected
      */
-    public void addSelectOption(String option) {
+    public void selectOptionFromAddMenu(String option) {
         WebElement optionElement = Driver.getDriver().findElement(By.xpath("//span[text()='" + option + "']"));
         optionElement.click();
     }
@@ -74,7 +67,7 @@ public class FilesPage extends BasePage{
 
         StringSelection selection = new StringSelection(filePath);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
-
+        BrowserUtils.waitFor(2);
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_V);
@@ -84,17 +77,14 @@ public class FilesPage extends BasePage{
         robot.keyRelease(KeyEvent.VK_ENTER);
     }
 
-
     /**
      * Generates a dynamic XPath locator for a file item in a table.
      *
      * @param itemName the name of the file to locate
      * @return a By object containing the XPath expression to find the file item
      */
-    public By getItemLocator(String itemName){
-        //return By.xpath("//tr[contains(@data-file, '" + itemName + "')]");
+    public By getItemLocator(String itemName) {
         return By.xpath("//span[contains(@class, 'innernametext') and text()='" + itemName + "']");
-
     }
 
     /**
@@ -114,126 +104,147 @@ public class FilesPage extends BasePage{
         return fileName.substring(0, lastDotIndex);
     }
 
+    /**
+     * Checks if a specific item is present in the list of all names.
+     *
+     * @param itemName the name of the item to check for presence
+     * @return true if the item is present, false otherwise
+     */
     public boolean isItemPresent(String itemName) {
         return getAllNames().contains(itemName);
     }
 
-    //==========================222222222222222===============
 
+
+
+
+    /**
+     * Enters a folder name into the input field and confirms the action.
+     *
+     * @param folderName the name of the folder to be entered
+     */
     public void enterFolderName(String folderName) {
-
-
         WebElement folderInput = Driver.getDriver().findElement(By.xpath("//input[@value='New folder']"));
         folderInput.sendKeys(folderName);
         WebElement confirmButton = Driver.getDriver().findElement(By.xpath("//input[@class='icon-confirm']"));
         confirmButton.click();
     }
 
-
-
     @FindBy(xpath = "//tr[@data-file]//span[@class='innernametext']")
     public List<WebElement> fileListAllNames;
 
     /**
      * returns all the fıles and folder names as Lıst of Strıng
-     * @return
+     * Waits for 3 seconds before fetching the text to ensure elements are fully loaded.
+     *
+     * @return a list of strings containing the names of all items
      */
     public List<String> getAllNames() {
+        BrowserUtils.waitFor(3);
         return BrowserUtils.getElementsText(fileListAllNames);
     }
 
 
-    /*
-        public voıd deleteItem(Strıng ıtemName) {
-           // clıcksOnThreeDotBtn(ıtemName)
-           // deleteBtn.clıck()
-        }
-
+    /**
+     * Deletes a specified item by interacting with the three-dots menu.
+     * First, it clicks the three-dots menu of the given item, then selects the "Delete" option.
+     *
+     * @param itemName the name of the item to be deleted
      */
+    public void deleteItem(String itemName) {
+        clickThreeDotsMenu(itemName);
+        selectOptionFromThreeDotsMenu("Delete");
+    }
 
 
-    //============================333333333333333==============
+
+
+
     @FindBy(xpath = "//tbody[@id='fileList']//tr[@data-file]")
     public List<WebElement> fileList;
 
-    @FindBy(xpath = "//tr[@data-file='\"+name+\"']//a[@data-action='menu']")
-    public WebElement threeDotsMenu;
-
+    /**
+     * Clicks the three-dots menu for a specified item in the list.
+     * Waits until the menu button is clickable before clicking.
+     * If the menu is not found, an error message is printed.
+     *
+     * @param itemName the name of the item whose menu should be clicked
+     */
     public void clickThreeDotsMenu(String itemName) {
         try {
-
-            String xpath = "//tr[contains(.,'" + itemName + "')]//span[contains(@class, 'icon-more')]\n";
-
-
+            //String xpath = "//tr[contains(.,'" + itemName + "')]//span[contains(@class, 'icon-more')]\n";
+            String xpath = "//tr[contains(.,'" + itemName + "')]//a[@data-action='menu']";
+            BrowserUtils.waitForClickablility(By.xpath(xpath), 10);
             WebElement threeDotsButton = Driver.getDriver().findElement(By.xpath(xpath));
-
             threeDotsButton.click();
-            System.out.println("Clicked the three dots menu for "+itemName);
+            System.out.println("Clicked the three dots menu for " + itemName);
         } catch (NoSuchElementException e) {
-            System.out.println("Error: Three Dots Menu  not found for "+ itemName);
+            System.out.println("Error: Three Dots Menu not found for " + itemName);
         }
     }
 
-    public void selectOptionFromThreeDotsMenu(String option){
+    /**
+     * Selects an option from the three-dots menu by its action attribute.
+     * Finds the menu option using its data-action value and clicks it.
+     *
+     * @param option the action name of the menu option to select
+     */
+    public void selectOptionFromThreeDotsMenu(String option) {
         WebElement optionElement = Driver.getDriver().findElement(By.xpath("//a[@data-action='" + option + "']"));
         optionElement.click();
     }
 
-
-    public WebElement getFileListElement(String itemName){
-
-        return Driver.getDriver().findElement(By.xpath("//tbody[@id='fileList']//tr[@data-file='"+itemName+"']"));
-
+    /**
+     * Adds an item (either a new folder or an uploaded file) based on the provided name.
+     * - If the item name does not contain a dot (.), it is treated as a folder and created as a new folder.
+     * - If the item name contains a dot (.), it is treated as a file and uploaded from a predefined directory.
+     *
+     * @param itemName the name of the item to be added (either a folder or a file)
+     * @throws AWTException if an error occurs during file upload using the Robot class
+     */
+    public void addItem(String itemName) throws AWTException {
+        clickNewButton();
+        int lastDotIndex = itemName.lastIndexOf('.');
+        if (lastDotIndex == -1) {
+            selectOptionFromAddMenu("New folder");
+            enterFolderName(itemName);
+        } else {
+            selectOptionFromAddMenu("Upload file");
+            uploadFileWithRobot("D:\\Cydeo\\" + itemName);
+        }
     }
 
-    //============================444444444444444444444444==============
 
 
 
-    public int getDisplayedFolderCount(){
-        WebElement countElement=Driver.getDriver().findElement(By.xpath("//td[@class='filesummary']//span//span[@class='dirinfo']"));
-        String text=countElement.getText();
-        System.out.println("text = " + text);
-        String[] parts=text.split(" ");
+
+    /**
+     * Retrieves the count of displayed folders from the file summary section.
+     * Extracts the numeric value from the text inside the 'dirinfo' span element.
+     *
+     * @return the number of displayed folders as an integer
+     */
+    public int getDisplayedFolderCount() {
+        WebElement countElement = Driver.getDriver().findElement(By.xpath("//td[@class='filesummary']//span//span[@class='dirinfo']"));
+        String text = countElement.getText();
+        System.out.println("Displayed folder count = " + text);
+        String[] parts = text.split(" ");
         return Integer.parseInt(parts[0]);
     }
 
-    public int getDisplayedFileCount(){
-        WebElement countElement=Driver.getDriver().findElement(By.xpath("//td[@class='filesummary']//span//span[@class='fileinfo']"));
-        String text=countElement.getText();
-        System.out.println("text = " + text);
-        String[] parts=text.split(" ");
+    /**
+     * Retrieves the count of displayed files from the file summary section.
+     * Extracts the numeric value from the text inside the 'fileinfo' span element.
+     *
+     * @return the number of displayed files as an integer
+     */
+    public int getDisplayedFileCount() {
+        WebElement countElement = Driver.getDriver().findElement(By.xpath("//td[@class='filesummary']//span//span[@class='fileinfo']"));
+        String text = countElement.getText();
+        System.out.println("Displayed file count = " + text);
+        String[] parts = text.split(" ");
         return Integer.parseInt(parts[0]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //^Created by Oguz
-
-
-
 
 
 
