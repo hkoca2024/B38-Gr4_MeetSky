@@ -135,37 +135,28 @@ public class DeckStepDefs {
 
     @Then("a dropdown menu with options should appear")
     public void a_dropdown_menu_with_options_should_appear() {
-        Select dropdown = new Select(deck.threeDotCardIcon);
-
-        // Dropdown'daki tüm seçenekleri al (options)
-        List<WebElement> options = dropdown.getOptions();
-
-        // Her bir option için isDisplayed() kontrolü yap
-        for (WebElement option : options) {
-            if (option.isDisplayed()) {
-                System.out.println(option.getText() + " is displayed.");
-            } else {
-                System.out.println(option.getText() + " is NOT displayed.");
-            }
+        for(WebElement each: deck.getThreedotList()){
+                    Assert.assertTrue(each.isDisplayed());
         }
     }
 
     @Then("the user selects the Assign to me option from the dropdown")
     public void the_user_selects_the_assign_to_me_option_from_the_dropdown() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+             deck.assignMeButton.click();
     }
 
     @Then("the card task should be assigned to the user")
     public void the_card_task_should_be_assigned_to_the_user() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+        String expected="Employee74";
+            String actual=deck.userIdentityData.getDomAttribute("aria-label");
+            Assert.assertTrue(actual.contains(expected));
+
     }
 
     @Then("the user’s name or profile picture should appear on the card task as the assignee.")
     public void the_user_s_name_or_profile_picture_should_appear_on_the_card_task_as_the_assignee() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+               Assert.assertTrue(deck.userIdentityData.isDisplayed());
     }
 
 
