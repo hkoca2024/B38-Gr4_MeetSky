@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeckPage extends BasePage {
@@ -63,11 +64,42 @@ public class DeckPage extends BasePage {
     @FindBy (xpath = "(//button[@class='icon vue-button action-item__menutoggle action-item__menutoggle--default-icon'])[11]")
     public WebElement threeDotCardIcon;
 
+    @FindBy (xpath = "//div[@class='avatardiv popovermenu-wrapper has-tooltip']")
+    public WebElement userIdentityData;
+
+    @FindBy (xpath = " (//button[@class='action-button focusable'])[6]")
+    public WebElement assignMeButton;
+
+    @FindBy (xpath = " (//button[@class='action-button focusable'])[7]")
+    public WebElement moveCard;
+
+    @FindBy (xpath = " (//button[@class='action-button focusable'])[8]")
+    public WebElement cardDetails;
+
+    @FindBy (xpath = " (//button[@class='action-button focusable'])[9]")
+    public WebElement archiveCard;
+
+    @FindBy (xpath = " (//button[@class='action-button focusable'])[10]")
+    public WebElement deleteCard;
 
     public WebElement getBoardElement(String boardName) {
 
         return Driver.getDriver().findElement(By.xpath("//span[@title='" + boardName + "']"));
     }
+
+
+    public List<WebElement>getThreedotList() {
+        List<WebElement> threedotList=new ArrayList<>();
+               threedotList.add(assignMeButton);
+               threedotList.add(moveCard);
+               threedotList.add(cardDetails);
+               threedotList.add(archiveCard);
+               threedotList.add(deleteCard);
+
+        return  threedotList;
+    }
+
+
 
 }
 
