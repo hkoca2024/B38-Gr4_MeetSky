@@ -88,6 +88,13 @@ public class DeckPage extends BasePage {
     }
 
 
+    /**
+     *
+     * @return  method takes 3 dot elements and add this list and return web list
+     *
+     */
+
+
     public List<WebElement>getThreedotList() {
         List<WebElement> threedotList=new ArrayList<>();
                threedotList.add(assignMeButton);
